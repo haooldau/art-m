@@ -4,13 +4,18 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import QueuePool
 import time
 import logging
+import os
+from dotenv import load_dotenv
+
+# 加载环境变量
+load_dotenv()
 
 # 配置日志
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=os.getenv('LOG_LEVEL', 'INFO'))
 logger = logging.getLogger(__name__)
 
 # 数据库连接配置
-DATABASE_URL = "mysql+mysqlconnector://root:74R6z2n891KemMJrjQ3OcT5uwkYE0HgV@hkg1.clusters.zeabur.com:32710/zeabur"
+DATABASE_URL = os.getenv('DATABASE_URL', 'mysql+mysqlconnector://root:password@localhost:3306/damai')
 
 # 创建数据库引擎，添加连接池配置
 engine = create_engine(

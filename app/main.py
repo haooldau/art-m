@@ -13,10 +13,14 @@ app = FastAPI()
 # 配置CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3002", "http://localhost:3000"],  # 允许的前端域名
+    allow_origins=[
+        "https://sparkle.hkg1.zeabur.app",
+        "http://localhost:3000",
+        "http://localhost:3002"
+    ],
     allow_credentials=True,
-    allow_methods=["*"],  # 允许所有 HTTP 方法
-    allow_headers=["*"],  # 允许所有 headers
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # 配置日志
@@ -70,7 +74,7 @@ async def update_artist_shows(artist: str):
         logger.error(f"艺人 {artist} 数据更新失败: {str(e)}")
         raise
 
-@app.post("/crawler/update")
+@app.post("/update")
 async def update_shows(request: Request):
     try:
         data = await request.json()
